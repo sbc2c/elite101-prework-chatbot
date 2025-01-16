@@ -2,31 +2,64 @@ import random
 def next_choice():
   #main portion
   print('')
-  print('What else would you like to do')
-  print('1. Play Game Again')
-  print('2. Give Inpirational Quote')
-  print('3. Exit ')
+  print('What else would you like to do \n')
+  print('1. Play Game Again \n')
+  print('2. Give Inpirational Quote \n')
+  print('3. Exit \n')
   choice = input('')
   #seeing what user chose
   if choice == '1':
-    game();
+    guessing_game();
   if choice == '2':
     insp_quote();
-
-
-def game():
-  #game code
-  num_guess = input('I will generate a number from 1 - 100, So guess a number. ')
-  num = random.randint(1,100)
-  #game response
-  if num_guess == num:
-    print('')
-    print('GOOD GUESS')
-    next_choice();
   else:
-    print('')
-    print('aww good guess but not the right one')
-    next_choice();
+     quit
+
+
+def guessing_game():
+    counter = 0
+    comp_max_num = 100;
+    comp_min_num = 1;
+    #getting random number
+    comp_gen_num = random.randint(1, comp_max_num);
+    print(comp_gen_num)
+    user_guess = -1
+    #instructions for the game
+    print('I have generated a number from 1 - 100 \n')
+    print('You have to guess a number and I will tell you higher or lower \n')
+    print('enter q to quit \n')
+    print('Guess a number 1 - 100\n')
+    while comp_gen_num != user_guess:
+        #takes user input
+        user_guess = input('');
+        #check if user wants to break
+        if user_guess == 'q':
+            break
+            next_choice();
+        try:
+            user_guess = int(user_guess);
+        except:
+            print('Sorry you didnt enter a number in the range of 1 - 100 \n')
+            print('Try again\n')
+            continue
+        #compares user input to computer generated number
+        if user_guess > comp_max_num or user_guess < comp_min_num:
+            print('''\nSorry the number you entered isn't in the valid range of 1 - 100 \n''')
+            continue
+        if comp_gen_num < user_guess:
+            #compares if user input is too high
+            print('\nYour guessing too high!\n')
+            counter = counter + 1
+        elif comp_gen_num > user_guess:
+            #compares if user input is too low
+            print('\nYour guessing too low!\n')
+            counter = counter + 1
+        else:
+            #win message
+            print('\n Spot on!')
+            counter = counter + 1
+            print('\n You guessed it in ' + str(counter) + ' guess(es)\n');
+            next_choice();
 
 
 def insp_quote():
